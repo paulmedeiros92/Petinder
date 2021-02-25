@@ -2,10 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/imageViewProfile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".BrowsingActivity">
 
     <ImageView
         android:id="@+id/imageViewBackground"
@@ -124,31 +123,36 @@
         app:srcCompat="@drawable/ic_baseline_location_on_24" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/editActionButton"
+        android:id="@+id/likeActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:clickable="true"
-        android:contentDescription="@string/edit"
+        android:contentDescription="@string/like"
         android:focusable="true"
-        android:onClick="editProfile"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:tint="@null"
+        app:backgroundTint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewBackground"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_edit_24"
+        app:srcCompat="@drawable/ic_baseline_favorite_24"
         app:tint="@null" />
 
-    <Button
-        android:id="@+id/button2"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/dislikeActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
-        android:onClick="browseProfiles"
-        android:text="@string/button_search"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:clickable="true"
+        android:contentDescription="@string/dislike"
+        android:focusable="true"
+        app:backgroundTint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/imageViewBackground"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_close_24"
+        app:tint="@null" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

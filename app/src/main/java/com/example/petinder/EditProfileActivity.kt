@@ -2,24 +2,26 @@ package com.example.petinder
 
 import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
+import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.Toast
+import java.io.InputStream
 
 const val IMAGE_CHOOSE = 1000
 const val PERMISSION_CODE = 1001
 
 class EditProfileActivity : AppCompatActivity() {
+    var profile = Profile()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
 
         // Get the Intent that started this activity
-        val profile = intent.getSerializableExtra(EXTRA_PROFILE) as Profile
+        profile = intent.getSerializableExtra(EXTRA_PROFILE) as Profile
 
         val editTextName = findViewById<EditText>(R.id.editTextName)
         editTextName.setText(profile.name)
@@ -33,7 +35,7 @@ class EditProfileActivity : AppCompatActivity() {
         editTextLocation.setText(profile.location)
     }
 
-    fun pickPhoto(view: View) {
+    fun pickPhoto() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         startActivityForResult(intent, IMAGE_CHOOSE)
@@ -44,7 +46,10 @@ class EditProfileActivity : AppCompatActivity() {
         val imageViewProfile = findViewById<ImageView>(R.id.imageViewProfile)
 
         if (requestCode == IMAGE_CHOOSE && resultCode == Activity.RESULT_OK) {
-            imageViewProfile.setImageURI(data?.data)
+            if (data?.data != null) {
+                imageViewProfile.setImageURI(data.data)
+                profile.profilePicture = data.data.toString()
+            }
         }
     }
 
@@ -54,15 +59,13 @@ class EditProfileActivity : AppCompatActivity() {
         val editTextSpecies = findViewById<EditText>(R.id.editTextSpecies)
         val editTextTemperament = findViewById<EditText>(R.id.editTextTemperament)
         val editTextLocation = findViewById<EditText>(R.id.editTextLocation)
-        val newProfile = Profile(
-            editTextName.text.toString(),
-            editTextAge.text.toString(),
-            editTextSpecies.text.toString(),
-            editTextTemperament.text.toString(),
-            editTextLocation.text.toString()
-        )
+        profile.name = editTextName.text.toString()
+        profile.age = editTextAge.text.toString().toInt()
+        profile.species = editTextSpecies.text.toString()
+        profile.temperament = editTextTemperament.text.toString()
+        profile.location = editTextLocation.text.toString()
         val intent = Intent(this, MainActivity::class.java).apply {
-            putExtra(EXTRA_PROFILE, newProfile)
+            putExtra(EXTRA_PROFILE, profile)
         }
         startActivity(intent)
     }

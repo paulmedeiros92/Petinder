@@ -5,8 +5,10 @@
     <string name="name">Name</string>
     <string name="age">Age</string>
     <string name="species">Species</string>
-    <string name="temperament">Fun, Energetic, Cute, Etc...</string>
+    <string name="temperament">Fun, Energetic, Cute, Etc&#8230;</string>
     <string name="location">Location</string>
     <string name="edit">Edit</string>
     <string name="save">Save</string>
+    <string name="like">Like</string>
+    <string name="dislike">Dislike</string>
 </resources>

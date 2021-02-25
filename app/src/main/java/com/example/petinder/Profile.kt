@@ -1,5 +1,6 @@
 package com.example.petinder
 
+import android.net.Uri
 import java.io.Serializable
 
 class Profile(
@@ -7,11 +8,13 @@ class Profile(
         _age: String = "30",
         _species: String = "Desert Tortoise",
         _temperament: String = "Stoic, Reliable, Tough, Slothful",
-        _location: String = "Las Vegas, Nevada"
+        _location: String = "Las Vegas, Nevada",
+        _profilePicture: String = "android.resource://com.example.petinder/" + R.drawable.mogo
 ) : Serializable {
-    val name = _name
-    val age = _age.toInt()
-    val species = _species
-    val temperament = _temperament
-    val location = _location
+    var name = _name
+    var age = _age.toInt()
+    var species = _species
+    var temperament = _temperament
+    var location = _location
+    var profilePicture = _profilePicture
 }

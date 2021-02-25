@@ -1,20 +1,28 @@
 package com.example.petinder
 
 import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 
 const val EXTRA_PROFILE = "com.example.petinder.PROFILE"
 
 class MainActivity : AppCompatActivity() {
+    var profile: Profile = Profile()
+
+    // TODO: LOOK INTO THIS
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         // Get the Intent that started this activity
-        var profile = if (intent.getSerializableExtra(EXTRA_PROFILE) == null) Profile()
+        profile = if (intent.getSerializableExtra(EXTRA_PROFILE) == null) Profile()
             else intent.getSerializableExtra(EXTRA_PROFILE) as Profile
 
         val textViewName = findViewById<TextView>(R.id.textViewName)
@@ -27,24 +35,22 @@ class MainActivity : AppCompatActivity() {
         textViewTemperament.text = profile.temperament
         val textViewLocation = findViewById<TextView>(R.id.textViewLocation)
         textViewLocation.text = profile.location
+        val imageViewBackground = findViewById<ImageView>(R.id.imageViewBackground)
+        imageViewBackground.setImageURI(Uri.parse(profile.profilePicture))
     }
 
-    /** Called when the user taps the Send button */
+    /** Called when the user taps the pencil button */
     fun editProfile(view: View) {
-        val textViewName = findViewById<TextView>(R.id.textViewName)
-        val textViewAge = findViewById<TextView>(R.id.textViewAge)
-        val textViewSpecies = findViewById<TextView>(R.id.textViewSpecies)
-        val textViewTemperament = findViewById<TextView>(R.id.textViewTemperament)
-        val textViewLocation = findViewById<TextView>(R.id.textViewLocation)
-        val newProfile = Profile(
-                textViewName.text.toString(),
-                textViewAge.text.toString(),
-                textViewSpecies.text.toString(),
-                textViewTemperament.text.toString(),
-                textViewLocation.text.toString()
-        )
         val intent = Intent(this, EditProfileActivity::class.java).apply {
-            putExtra(EXTRA_PROFILE, newProfile)
+            putExtra(EXTRA_PROFILE, profile)
+        }
+        startActivity(intent)
+    }
+
+    /** Called when the user taps the search button */
+    fun browseProfiles(view: View) {
+        val intent = Intent(this, BrowsingActivity::class.java).apply {
+            putExtra(EXTRA_PROFILE, profile)
         }
         startActivity(intent)
     }
